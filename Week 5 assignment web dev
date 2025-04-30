@@ -1,0 +1,140 @@
+# index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript DOM Manipulation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 id="main-heading">DOM Manipulation Demo</h1>
+    </header>
+    
+    <main>
+        <section class="content-section">
+            <p id="dynamic-text">This text will change when you click the button below.</p>
+            <button id="change-text-btn">Change Text</button>
+        </section>
+        
+        <section class="content-section">
+            <div id="style-demo" class="box">This box's style will change when you hover over it.</div>
+        </section>
+        
+        <section class="content-section">
+            <button id="toggle-element-btn">Toggle Element</button>
+            <div id="element-container">
+                <p class="toggleable">This element can be toggled on and off.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Created with JavaScript DOM Manipulation</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+(styles.css)
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.content-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.box {
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.toggleable {
+    padding: 10px;
+    background-color: #e7f3fe;
+    border-left: 5px solid #2196F3;
+}
+```
+
+(script.js)
+
+// Change text content dynamically
+const changeTextBtn = document.getElementById('change-text-btn');
+const dynamicText = document.getElementById('dynamic-text');
+
+changeTextBtn.addEventListener('click', function() {
+    dynamicText.textContent = "The text has been changed successfully!";
+    dynamicText.style.color = "blue";
+});
+
+// Modify CSS styles via JavaScript
+const styleDemo = document.getElementById('style-demo');
+
+styleDemo.addEventListener('mouseover', function() {
+    this.style.backgroundColor = "#ffcccb";
+    this.style.transform = "scale(1.05)";
+    this.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
+});
+
+styleDemo.addEventListener('mouseout', function() {
+    this.style.backgroundColor = "#f0f0f0";
+    this.style.transform = "scale(1)";
+    this.style.boxShadow = "none";
+});
+
+// Add or remove an element when a button is clicked
+const toggleElementBtn = document.getElementById('toggle-element-btn');
+const elementContainer = document.getElementById('element-container');
+let isVisible = true;
+
+toggleElementBtn.addEventListener('click', function() {
+    const toggleableElement = elementContainer.querySelector('.toggleable');
+    
+    if (isVisible) {
+        toggleableElement.style.display = "none";
+        toggleElementBtn.textContent = "Show Element";
+    } else {
+        toggleableElement.style.display = "block";
+        toggleElementBtn.textContent = "Hide Element";
+    }
+    
+    isVisible = !isVisible;
+});
+
+// Additional dynamic behavior
+const mainHeading = document.getElementById('main-heading');
+
+mainHeading.addEventListener('click', function() {
+    this.textContent = "You clicked the heading!";
+    setTimeout(() => {
+        this.textContent = "DOM Manipulation Demo";
+    }, 2000);
+});
+```
