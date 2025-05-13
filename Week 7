@@ -1,0 +1,97 @@
+Index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Transitions and Animations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Welcome to the Animation Demo!</h1>
+    <button id="animateButton">Click Me!</button>
+    <script src="script.js"></script>
+</body>
+</html>
+
+styles.css
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+#animateButton {
+    padding: 15px 30px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Animation class */
+.animate {
+    animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+script.js
+// Function to save user preference in localStorage
+function savePreference(color) {
+    localStorage.setItem('buttonColor', color);
+}
+
+// Function to retrieve user preference from localStorage
+function getPreference() {
+    return localStorage.getItem('buttonColor') || '#007bff'; // default color
+}
+
+// Function to apply animation and change color
+function animateButton() {
+    const button = document.getElementById('animateButton');
+    button.classList.add('animate');
+
+    // Change button color
+    const newColor = button.style.backgroundColor === 'rgb(255, 69, 0)' ? getPreference() : 'rgb(255, 69, 0)';
+    button.style.backgroundColor = newColor;
+    
+    // Save the new color preference
+    savePreference(newColor);
+
+    // Remove animation class after animation ends
+    setTimeout(() => {
+        button.classList.remove('animate');
+    }, 500);
+}
+
+// Set the initial button color based on preference
+document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('animateButton');
+    button.style.backgroundColor = getPreference();
+
+    // Add click event listener
+    button.addEventListener('click', animateButton);
+});
+
